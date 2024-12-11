@@ -1,4 +1,23 @@
 use cosmwasm_schema::{cw_serde, QueryResponses};
+use cosmwasm_std::Binary;
+
+#[cw_serde]
+pub enum ExecuteMsg {
+    Increment {},
+    Reset { count: i32 },
+    FlashLoan {
+        amount: u128,
+        borrower: String,
+        callback_msg: Binary,
+    },
+}
+
+#[cw_serde]
+#[derive(QueryResponses)]
+pub enum QueryMsg {
+    #[returns(GetCountResponse)]
+    GetCount {},
+}
 
 #[cw_serde]
 pub struct InstantiateMsg {
@@ -6,21 +25,7 @@ pub struct InstantiateMsg {
 }
 
 #[cw_serde]
-pub enum ExecuteMsg {
-    Increment {},
-    Reset { count: i32 },
-}
-
-#[cw_serde]
-#[derive(QueryResponses)]
-pub enum QueryMsg {
-    // GetCount returns the current count as a json-encoded number
-    #[returns(GetCountResponse)]
-    GetCount {},
-}
-
-// We define a custom struct for each query response
-#[cw_serde]
 pub struct GetCountResponse {
     pub count: i32,
 }
+

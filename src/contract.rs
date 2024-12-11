@@ -42,7 +42,7 @@ pub fn execute(
         ExecuteMsg::Increment {} => execute::increment(deps),
         ExecuteMsg::Reset { count } => execute::reset(deps, info, count),
         ExecuteMsg::FlashLoan { amount, borrower, callback_msg } => {
-            execute::flash_loan(deps, env, info, amount, borrower, callback_msg)
+            execute::flash_loan(deps, env, info, amount.into(), borrower, callback_msg)
         }
     }
 }
